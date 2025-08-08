@@ -1,36 +1,93 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Sistema de Gestión de Contactos
 
-## Getting Started
+Una app full-stack para manejar usuarios y sus contactos. Básicamente un CRUD completo donde puedes crear usuarios y cada usuario puede tener sus propios contactos.
 
-First, run the development server:
+## 🚀 Demo
+La app está corriendo acá: https://sistema-gestion-contactos.vercel.app/
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Lo que usé
+
+- **Next.js 14** - Para el frontend y las APIs
+- **MongoDB Atlas** - Base de datos en la nube 
+- **Tailwind CSS** - Para que se vea bonito
+- **React Hooks** - Para manejar el estado
+
+## Qué hace la app
+
+- Crear, editar y eliminar usuarios
+- Cada usuario puede tener sus contactos
+- CRUD completo para contactos (crear, ver, editar, borrar)
+- Interfaz responsive que se ve bien en móvil
+- Confirmaciones antes de eliminar cosas importantes
+
+## API Endpoints
+
+### Usuarios
+```
+GET    /api/usuarios           - Todos los usuarios
+POST   /api/usuarios           - Crear usuario
+GET    /api/usuarios/[id]      - Un usuario específico  
+PUT    /api/usuarios/[id]      - Actualizar usuario
+DELETE /api/usuarios/[id]      - Eliminar usuario
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Contactos
+```
+GET    /api/usuarios/[id]/contactos              - Contactos del usuario
+POST   /api/usuarios/[id]/contactos              - Crear contacto
+PUT    /api/usuarios/[id]/contactos/[contactoId] - Actualizar contacto
+DELETE /api/usuarios/[id]/contactos/[contactoId] - Eliminar contacto
+```
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## Cómo correrlo local
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. Clonar el repo:
+```bash
+git clone https://github.com/[tu-usuario]/sistema-gestion-contactos.git
+cd sistema-gestion-contactos
+```
 
-## Learn More
+2. Instalar dependencias:
+```bash
+npm install
+```
 
-To learn more about Next.js, take a look at the following resources:
+3. Crear `.env.local` con tu MongoDB:
+```
+MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/contactos
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+4. Correr en desarrollo:
+```bash
+npm run dev
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+5. Abrir http://localhost:3000
 
-## Deploy on Vercel
+## Estructura del proyecto
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+src/
+├── app/
+│   ├── api/                 # APIs REST
+│   │   └── usuarios/        # Endpoints de usuarios y contactos
+│   ├── components/          # Componentes React
+│   │   ├── ui/             # Componentes base (Modal, etc)
+│   │   ├── usuarios/       # Componentes de usuarios
+│   │   └── contactos/      # Componentes de contactos
+│   ├── hooks/              # Hooks personalizados
+│   └── lib/                # Conexión a MongoDB
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Cosas técnicas
+
+- Usé hooks personalizados para separar la lógica de negocio
+- Los componentes solo se encargan de mostrar la UI
+- MongoDB (contactos dentro de usuarios)
+- Manejo de errores 
+
+## Deploy
+
+Está con deploy en Vercel porque se conecta súper fácil con GitHub y maneja Next.js automáticamente.
+
+---

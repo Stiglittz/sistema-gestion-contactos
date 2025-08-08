@@ -11,11 +11,11 @@ export default function UserList({
   onConfirmarEliminar
 }) {
   return (
-    <aside className="w-1/3 bg-white border-r overflow-y-auto">
+    <aside className="w-full md:w-1/3 bg-white border-r md:border-r border-b md:border-b-0 overflow-y-auto">
       {/* Header */}
       <div className="p-4 border-b">
         <div className="flex items-center justify-between">
-          <h2 className="text-lg font-semibold text-gray-800">
+          <h2 className="text-base md:text-lg font-semibold text-gray-800">
             👥 Usuarios ({usuarios.length})
           </h2>
           <button 

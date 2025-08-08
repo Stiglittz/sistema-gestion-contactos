@@ -18,7 +18,6 @@ export default function Dashboard() {
     loading,
     modalAbierto,
     modoEdicion,
-    usuarioAEditar,
     modalEliminar,
     usuarioAEliminar,
     formData,
@@ -41,7 +40,6 @@ export default function Dashboard() {
     contactos,
     modalContactoAbierto,
     modoEdicionContacto,
-    contactoAEditar,
     modalEliminarContacto,
     contactoAEliminar,
     formDataContacto,
@@ -108,7 +106,7 @@ export default function Dashboard() {
       <Header />
 
       {/* Layout Principal */}
-      <div className="flex h-[calc(100vh-73px)]">
+      <div className="flex flex-col md:flex-row h-[calc(100vh-73px)]">
         
         {/* Sidebar - Lista de Usuarios */}
         <UserList

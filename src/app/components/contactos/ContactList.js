@@ -23,27 +23,25 @@ export default function ContactList({
   return (
     <div className="h-full flex flex-col">
       {/* Header del panel de contactos */}
-      <div className="p-6 border-b bg-white">
+      <div className="p-4 md:p-6 border-b bg-white">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-xl font-semibold text-gray-900">
+            <h2 className="text-lg md:text-xl font-semibold text-gray-900">
               📞 Contactos de {usuario.nombre}
             </h2>
             <p className="text-sm text-gray-600 mt-1">
               {contactos.length} contactos
             </p>
           </div>
-          <button 
-            onClick={onAbrirModalContacto}
-            className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md font-medium transition-colors"
-          >
-            + Agregar Contacto
+          <button className="bg-green-500 hover:bg-green-600 text-white px-3 md:px-4 py-2 rounded-md text-sm md:text-base font-medium transition-colors">
+            <span className="hidden sm:inline">+ Agregar Contacto</span>
+            <span className="sm:hidden">+ Nuevo</span>
           </button>
         </div>
       </div>
 
       {/* Lista de contactos */}
-      <div className="flex-1 p-6">
+      <div className="flex-1 p-4 md:p-6">
         {contactos.length === 0 ? (
           <EmptyState
             icon="📋"
@@ -80,8 +78,8 @@ export default function ContactList({
 function ContactCard({ contacto, onEditar, onEliminar }) {
   return (
     <div className="bg-white p-4 rounded-lg border border-gray-200 hover:shadow-sm transition-shadow">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center space-x-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-0">
+        <div className="flex items-center space-x-3 md:space-x-4">
           <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
             <span className="text-green-600 font-medium">
               {contacto.nombre?.charAt(0).toUpperCase()}

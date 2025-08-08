@@ -40,7 +40,7 @@ export default function UserForm({
               value={formData.nombre}
               onChange={onInputChange}
               placeholder="Ej: Juan Pérez"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-3 py-2 border  text-gray-700 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               disabled={isLoading}
               required
             />
@@ -57,7 +57,7 @@ export default function UserForm({
               value={formData.email}
               onChange={onInputChange}
               placeholder="Ej: juan@ejemplo.com"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-3 py-2 border  text-gray-700 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               disabled={isLoading}
               required
             />
@@ -74,7 +74,7 @@ export default function UserForm({
               value={formData.telefono}
               onChange={onInputChange}
               placeholder="Ej: +52 81 1234 5678"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-3 py-2 border  text-gray-700 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               disabled={isLoading}
             />
           </div>
