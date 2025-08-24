@@ -1,6 +1,7 @@
 import conectarDB from '../../../lib/mongodb';
 import Usuario from '../../../models/Usuario';
 import { ObjectId } from 'mongodb';
+import { validarUsuario } from '../route';
 
 export async function GET(request, { params }) {
   try {
@@ -56,19 +57,16 @@ export async function PUT(request, { params }) {
       );
     }
     
-    const datos = await request.json();
-    
-    // Validar datos requeridos
-    if (!datos.nombre || !datos.email) {
-      return Response.json(
-        { error: 'Nombre y email son requeridos' },
-        { status: 400 }
-      );
+    const body = await request.json();
+    const validacion = validarUsuario(body)
+
+    if (!validacion.valido) {
+      return Response.json({ error: validacion.mensaje }, { status: 400 });
     }
     
     // Verificar si el email ya existe (excluyendo el usuario actual)
     const emailExistente = await Usuario.findOne({
-      email: datos.email,
+      email: validacion.data.email,
       _id: { $ne: id }
     });
     
@@ -82,7 +80,7 @@ export async function PUT(request, { params }) {
     // Actualizar usuario
     const usuarioActualizado = await Usuario.findByIdAndUpdate(
       id,
-      datos,
+      validacion.data,
       { new: true, runValidators: true }
     );
     

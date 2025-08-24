@@ -1,6 +1,26 @@
 import conectarDB from '../../lib/mongodb';
 import Usuario from '../../models/Usuario';
 
+export function validarUsuario(body) {
+  const { nombre, email, telefono } = body;
+
+  if (!nombre || !email) return { valido: false, mensaje: 'Nombre y email son requeridos' };
+
+  // Detecta etiquetas HTML peligrosas
+  const patronesMaliciosos = /<script>|<img|onerror=|onload=/i;
+  if (patronesMaliciosos.test(nombre) || patronesMaliciosos.test(email) || patronesMaliciosos.test(telefono)) {
+    return { valido: false, mensaje: 'Input contiene caracteres o código inválido' };
+  }
+
+  // Sanitizar
+  const nombreSanitizado = nombre.trim().replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  const emailSanitizado = email.trim().toLowerCase();
+  const telefonoSanitizado = telefono ? telefono.trim() : '';
+
+  return { valido: true, data: { nombre: nombreSanitizado, email: emailSanitizado, telefono: telefonoSanitizado } };
+}
+
+
 // GET /api/usuarios - Obtener todos los usuarios
 export async function GET() {
   try {
@@ -32,39 +52,18 @@ export async function GET() {
 // POST /api/usuarios - Crear nuevo usuario
 export async function POST(request) {
   try {
-    // Conectar a la base de datos
-    await conectarDB();
-    
-    // Obtener datos del body
     const body = await request.json();
-    const { nombre, email, telefono } = body;
-    
-    // Validar campos requeridos
-    if (!nombre || !email) {
-      return Response.json(
-        { 
-          success: false, 
-          message: "Nombre y email son requeridos" 
-        },
-        { status: 400 }
-      );
+    const validacion = validarUsuario(body);
+      
+    if (!validacion.valido) {
+      return Response.json({ success: false, message: validacion.mensaje }, { status: 400 });
     }
     
-    // Crear nuevo usuario
-    const nuevoUsuario = new Usuario({
-      nombre,
-      email,
-      telefono
-    });
-    
-    // Guardar en la base de datos
+    const nuevoUsuario = new Usuario(validacion.data);
     const usuarioGuardado = await nuevoUsuario.save();
-    
-    return Response.json({
-      success: true,
-      message: "Usuario creado exitosamente",
-      data: usuarioGuardado
-    }, { status: 201 });
+
+
+    return Response.json({ success: true, message: "Usuario creado exitosamente", data: usuarioGuardado }, { status: 201 });
     
   } catch (error) {
     console.error('Error en POST /api/usuarios:', error);
